@@ -31,7 +31,7 @@ const app = express();
 app.use('/graphiql', graphiqlExpress({endpointURL: '/graphql'}))
 
 // connect schema to graphql
-app.use('/graphql', bodyParser.json(), graphqlExpress({
+app.use('/graphql', bodyParser.json(),  graphqlExpress({
     schema,
     context: {
         Recipe,
