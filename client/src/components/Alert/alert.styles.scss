@@ -1,0 +1,184 @@
+.alert {
+    display: block;
+    position: relative;
+    padding: 24px;
+    border: 5px solid transparent;
+    border-radius: 5px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-clip: padding-box;
+}
+
+.alert i {
+    display: inline-block;
+    font-size: 1.2em;
+    vertical-align: middle;
+}
+
+.alert > *:last-child:not(.btn),
+.alert h1:last-child:not(.btn), .alert h2:last-child:not(.btn), .alert h3:last-child:not(.btn), .alert h4:last-child:not(.btn), .alert h5:last-child:not(.btn), .alert h6:last-child:not(.btn), .alert p:last-child:not(.btn), .alert ul:last-child:not(.btn), .alert ol:last-child:not(.btn), .alert a:last-child:not(.btn) {
+    margin: 0;
+}
+
+.alert::before {
+    display: block;
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    bottom: -6px;
+    left: -6px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    content: '';
+    z-index: -1;
+}
+
+.alert .alert-dismissible {
+    transition: opacity .4s;
+}
+
+.alert .alert-dismissible.fade.show {
+    opacity: 1;
+}
+
+.alert .alert-close {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-family: feather;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.alert .alert-close::before {
+    content: '\ea04';
+}
+
+a.alert {
+    text-decoration: none;
+}
+
+.alert-default {
+    background-color: #f5f5f5;
+    color: #505050;
+}
+
+.alert-default::before {
+    border-color: rgba(80, 80, 80, 0.13);
+}
+
+.alert-default > *:not(.text-white), .alert-default > *:not(.text-light),
+.alert-default h1:not(.text-white),
+.alert-default h1:not(.text-light), .alert-default h2:not(.text-white), .alert-default h2:not(.text-light), .alert-default h3:not(.text-white), .alert-default h3:not(.text-light), .alert-default h4:not(.text-white), .alert-default h4:not(.text-light), .alert-default h5:not(.text-white), .alert-default h5:not(.text-light), .alert-default h6:not(.text-white), .alert-default h6:not(.text-light), .alert-default p:not(.text-white), .alert-default p:not(.text-light), .alert-default ul:not(.text-white), .alert-default ul:not(.text-light), .alert-default ol:not(.text-white), .alert-default ol:not(.text-light), .alert-default a:not(.text-white), .alert-default a:not(.text-light) {
+    color: #505050;
+}
+
+.alert-default .alert-close {
+    color: #505050;
+}
+
+.alert-primary {
+    background-color: rgba(0, 85, 255, 0.11);
+    color: #0055ff;
+}
+
+.alert-primary::before {
+    border-color: rgba(0, 85, 255, 0.25);
+}
+
+.alert-primary > *:not(.text-white), .alert-primary > *:not(.text-light),
+.alert-primary h1:not(.text-white),
+.alert-primary h1:not(.text-light), .alert-primary h2:not(.text-white), .alert-primary h2:not(.text-light), .alert-primary h3:not(.text-white), .alert-primary h3:not(.text-light), .alert-primary h4:not(.text-white), .alert-primary h4:not(.text-light), .alert-primary h5:not(.text-white), .alert-primary h5:not(.text-light), .alert-primary h6:not(.text-white), .alert-primary h6:not(.text-light), .alert-primary p:not(.text-white), .alert-primary p:not(.text-light), .alert-primary ul:not(.text-white), .alert-primary ul:not(.text-light), .alert-primary ol:not(.text-white), .alert-primary ol:not(.text-light), .alert-primary a:not(.text-white), .alert-primary a:not(.text-light) {
+    color: #0055ff;
+}
+
+.alert-primary .alert-close {
+    color: #0055ff;
+}
+
+.alert-info {
+    background-color: rgba(33, 150, 243, 0.11);
+    color: #2196f3;
+}
+
+.alert-info::before {
+    border-color: rgba(33, 150, 243, 0.3);
+}
+
+.alert-info > *:not(.text-white), .alert-info > *:not(.text-light),
+.alert-info h1:not(.text-white),
+.alert-info h1:not(.text-light), .alert-info h2:not(.text-white), .alert-info h2:not(.text-light), .alert-info h3:not(.text-white), .alert-info h3:not(.text-light), .alert-info h4:not(.text-white), .alert-info h4:not(.text-light), .alert-info h5:not(.text-white), .alert-info h5:not(.text-light), .alert-info h6:not(.text-white), .alert-info h6:not(.text-light), .alert-info p:not(.text-white), .alert-info p:not(.text-light), .alert-info ul:not(.text-white), .alert-info ul:not(.text-light), .alert-info ol:not(.text-white), .alert-info ol:not(.text-light), .alert-info a:not(.text-white), .alert-info a:not(.text-light) {
+    color: #2196f3;
+}
+
+.alert-info .alert-close {
+    color: #2196f3;
+}
+
+.alert-success {
+    background-color: rgba(76, 175, 80, 0.11);
+    color: #4caf50;
+}
+
+.alert-success::before {
+    border-color: rgba(76, 175, 80, 0.25);
+}
+
+.alert-success > *:not(.text-white), .alert-success > *:not(.text-light),
+.alert-success h1:not(.text-white),
+.alert-success h1:not(.text-light), .alert-success h2:not(.text-white), .alert-success h2:not(.text-light), .alert-success h3:not(.text-white), .alert-success h3:not(.text-light), .alert-success h4:not(.text-white), .alert-success h4:not(.text-light), .alert-success h5:not(.text-white), .alert-success h5:not(.text-light), .alert-success h6:not(.text-white), .alert-success h6:not(.text-light), .alert-success p:not(.text-white), .alert-success p:not(.text-light), .alert-success ul:not(.text-white), .alert-success ul:not(.text-light), .alert-success ol:not(.text-white), .alert-success ol:not(.text-light), .alert-success a:not(.text-white), .alert-success a:not(.text-light) {
+    color: #4caf50;
+}
+
+.alert-success .alert-close {
+    color: #4caf50;
+}
+
+.alert-warning {
+    background-color: rgba(255, 160, 0, 0.11);
+    color: #ffa000;
+}
+
+.alert-warning::before {
+    border-color: rgba(255, 160, 0, 0.25);
+}
+
+.alert-warning > *:not(.text-white), .alert-warning > *:not(.text-light),
+.alert-warning h1:not(.text-white),
+.alert-warning h1:not(.text-light), .alert-warning h2:not(.text-white), .alert-warning h2:not(.text-light), .alert-warning h3:not(.text-white), .alert-warning h3:not(.text-light), .alert-warning h4:not(.text-white), .alert-warning h4:not(.text-light), .alert-warning h5:not(.text-white), .alert-warning h5:not(.text-light), .alert-warning h6:not(.text-white), .alert-warning h6:not(.text-light), .alert-warning p:not(.text-white), .alert-warning p:not(.text-light), .alert-warning ul:not(.text-white), .alert-warning ul:not(.text-light), .alert-warning ol:not(.text-white), .alert-warning ol:not(.text-light), .alert-warning a:not(.text-white), .alert-warning a:not(.text-light) {
+    color: #ffa000;
+}
+
+.alert-warning .alert-close {
+    color: #ffa000;
+}
+
+.alert-danger {
+    background-color: rgba(244, 67, 54, 0.11);
+    color: #f44336;
+}
+
+.alert-danger::before {
+    border-color: rgba(244, 67, 54, 0.25);
+}
+
+.alert-danger > *:not(.text-white), .alert-danger > *:not(.text-light),
+.alert-danger h1:not(.text-white),
+.alert-danger h1:not(.text-light), .alert-danger h2:not(.text-white), .alert-danger h2:not(.text-light), .alert-danger h3:not(.text-white), .alert-danger h3:not(.text-light), .alert-danger h4:not(.text-white), .alert-danger h4:not(.text-light), .alert-danger h5:not(.text-white), .alert-danger h5:not(.text-light), .alert-danger h6:not(.text-white), .alert-danger h6:not(.text-light), .alert-danger p:not(.text-white), .alert-danger p:not(.text-light), .alert-danger ul:not(.text-white), .alert-danger ul:not(.text-light), .alert-danger ol:not(.text-white), .alert-danger ol:not(.text-light), .alert-danger a:not(.text-white), .alert-danger a:not(.text-light) {
+    color: #f44336;
+}
+
+.alert-danger .alert-close {
+    color: #f44336;
+}
+
+.alert-image-bg {
+    border: 0;
+}
+
+.alert-image-bg::before {
+    display: none;
+}
+  

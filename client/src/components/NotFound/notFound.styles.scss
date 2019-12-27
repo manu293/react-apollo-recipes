@@ -1,0 +1,25 @@
+.fw-section{
+    position: relative;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.display-404 {
+    color: #ffffff;
+    font-size: 240px;
+    font-weight: 700;
+    text-shadow: 12px 12px 30px rgba(0, 0, 0, 0.1);
+}
+  
+  @media (max-width: 768px) {
+    .display-404 {
+      font-size: 204px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .display-404 {
+      font-size: 132px;
+    }
+  }
