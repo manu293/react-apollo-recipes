@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cros = require('cors');
+const jwt = require('jsonwebtoken');
 // bring in the graphql middleware
 const { graphiqlExpress, graphqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
@@ -37,6 +38,20 @@ const crosOptions = {
 };
 app.use(cros(crosOptions));
 
+// set up JWT authentication middleware
+app.use(async (req, res, next) => {
+  const token = req.headers.authorization;
+  if (token) {
+    try {
+      const currentUser = await jwt.verify(token, process.env.SECRET);
+      req.currentUser = currentUser;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  next();
+});
+
 // setting up graphiql application
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
@@ -44,13 +59,14 @@ app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 app.use(
   '/graphql',
   bodyParser.json(),
-  graphqlExpress({
+  graphqlExpress(({ currentUser }) => ({
     schema,
     context: {
       Recipe,
       User,
+      currentUser,
     },
-  })
+  }))
 );
 
 // using environmental vairable port or the default port

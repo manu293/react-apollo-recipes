@@ -28,7 +28,7 @@ class Alert extends Component {
         className={`alert alert-${type} alert-dismissible fade show text-center margin-bottom-1x`}
       >
         <span className="alert-close" data-dismiss="alert" />
-        <i className={this.displayIcons[{ type }]} />
+        <i className={this.displayIcons[type]} />
         &nbsp;&nbsp;<span className="text-medium">{message}</span>
       </div>
     );
