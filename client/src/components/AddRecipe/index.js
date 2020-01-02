@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-unused-state */
@@ -54,10 +55,6 @@ class AddRecipe extends Component {
     });
   };
 
-  // updateCache = (cache, data) => {
-  //   cache.readQuery({query: })
-  // };
-
   render() {
     const { name, description, instructions, category, userName } = this.state;
     return (
@@ -65,7 +62,6 @@ class AddRecipe extends Component {
         mutation={ADD_RECIPE}
         variables={{ name, description, instructions, category, userName }}
         refetchQueries={[{ query: GET_ALL_RECIPES }]}
-        // update={this.updateCache}
       >
         {(addRecipe, { data, loading, error }) => {
           return (
