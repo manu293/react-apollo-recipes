@@ -22,7 +22,7 @@ class Header extends Component {
       return (
         <>
           <div className="toolbar-item hidden-on-mobile">
-            <Link to="/signup">
+            <Link to="/recipe/add">
               <div>
                 <i className="icon-bookmark" />
                 <span className="text-label">Add Recipe</span>
@@ -31,7 +31,7 @@ class Header extends Component {
           </div>
 
           <div className="toolbar-item hidden-on-mobile">
-            <Link to="/signup">
+            <Link to="/profile">
               <div>
                 <i className="icon-home" />
                 <span className="text-label">Profile</span>

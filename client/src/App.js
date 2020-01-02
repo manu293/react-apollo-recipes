@@ -14,7 +14,12 @@ import { GET_ALL_RECIPES } from './queries';
 class App extends Component {
   renderRecipes = getAllRecipes => {
     return getAllRecipes.map(recipe => {
-      const { _id, name, description } = recipe;
+      const { _id, name, description, category, createdDate, userName } = recipe;
+      const dateObj = new Date(createdDate);
+      const day = dateObj.getUTCDate();
+      const month = dateObj.getUTCMonth() + 1;
+      const year = dateObj.getUTCFullYear();
+      console.log('The date object is : ', recipe);
       return (
         <div className="grid-item" key={_id}>
           <div className="blog-post">
@@ -22,22 +27,22 @@ class App extends Component {
               <ul className="post-meta">
                 <li>
                   <i className="icon-clock" />
-                  <a href="#">Mar 15, 2018</a>
+                  <a href="#">{`${day} - ${month} - ${year}`}</a>
                 </li>
                 <li>
                   <i className="icon-user" />
-                  <a href="#">Gregory S.</a>
+                  <a href="#">{userName || 'John Doe'}</a>
                 </li>
                 <li>
                   <i className="icon-tag" />
-                  <a href="#">Ecommerce</a>
+                  <a href="#">{category}</a>
                 </li>
               </ul>
               <h3 className="post-title">
-                <a href="blog-single-ns.html">{name}</a>
+                <Link to={`/recipes/${_id}`}>{name}</Link>
               </h3>
               <p>
-                {description} <Link to={`/recipes/${_id}`}>Read more</Link>
+                {description} <Link to={`/recipes/${_id}`}>Read instructions</Link>
               </p>
             </div>
           </div>
