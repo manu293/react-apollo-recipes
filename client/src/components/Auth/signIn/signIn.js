@@ -1,18 +1,14 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable react/require-default-props */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/prefer-stateless-function */
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/require-default-props */
 /* eslint-disable import/prefer-default-export */
-
+/* eslint-disable no-undef */
 // import
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import { Link, withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 // local import
 import '../signUp/signUp.styles.scss';
@@ -22,8 +18,8 @@ import { SIGNIN_USER } from '../../../queries';
 import { Alert } from '../../Alert';
 
 const INITITAL_STATE = {
-  userName: '',
-  password: '',
+  userName: 'pete',
+  password: 'pete123',
   errMessage: '',
 };
 
@@ -51,7 +47,6 @@ class signIn extends Component {
     signInUser()
       .then(async ({ data }) => {
         localStorage.setItem('token', data.signInUser.token);
-        console.log('The token is : ', data);
         await refetch();
       })
       .catch(resp => {
@@ -148,11 +143,6 @@ class signIn extends Component {
     );
   }
 }
-
-signIn.propTypes = {
-  history: PropTypes.object,
-};
-
 const signInComp = withRouter(signIn);
 
 export { signInComp as SignIn };

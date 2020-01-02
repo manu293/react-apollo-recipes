@@ -1,13 +1,3 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable no-console */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 // import
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';

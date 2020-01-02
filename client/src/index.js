@@ -1,5 +1,5 @@
+/* eslint-disable no-console */
 /* eslint-disable react/prop-types */
-/* eslint-disable no-unused-expressions */
 /* eslint-disable no-undef */
 // imports
 import React from 'react';
@@ -7,9 +7,10 @@ import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 // local imports
 import App from './App';
-import { NotFound, SignUp, SignIn, withSession } from './components';
+import { NotFound, SignUp, SignIn, withSession, RecipePage } from './components';
 // connecting the front-end to the back-end
 const client = new ApolloClient({
   uri: 'http://localhost:4444/graphql',
@@ -31,16 +32,19 @@ const client = new ApolloClient({
   },
 });
 
-const Root = ({ refetch }) => (
-  <Router>
-    <Switch>
-      <Route path="/" exact component={App} />
-      <Route path="/signup" exact render={() => <SignUp refetch={refetch} />} />
-      <Route path="/signin" exact render={() => <SignIn refetch={refetch} />} />
-      <Route path="*" component={NotFound} />
-    </Switch>
-  </Router>
-);
+const Root = ({ refetch, session }) => {
+  return (
+    <Router>
+      <Switch>
+        <Route path="/" exact render={() => <App session={session} />} />
+        <Route path="/signup" exact render={() => <SignUp refetch={refetch} />} />
+        <Route path="/signin" exact render={() => <SignIn refetch={refetch} />} />
+        <Route path="/recipes/:_id" component={RecipePage} />
+        <Route path="*" component={NotFound} />
+      </Switch>
+    </Router>
+  );
+};
 
 const RootWithSesion = withSession(Root);
 
