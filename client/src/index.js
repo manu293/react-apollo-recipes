@@ -18,6 +18,7 @@ import {
   RecipePage,
   AddRecipe,
   SearchPage,
+  ProfilePage,
 } from './components';
 // connecting the front-end to the back-end
 const client = new ApolloClient({
@@ -50,6 +51,7 @@ const Root = ({ refetch, session }) => {
         <Route path="/recipe/add" exact render={() => <AddRecipe session={session} />} />
         <Route path="/search/recipe" exact component={SearchPage} />
         <Route path="/recipes/:_id" component={RecipePage} />
+        <Route path="/profile" render={() => <ProfilePage session={session} />} />
         <Route path="*" component={NotFound} />
       </Switch>
     </Router>

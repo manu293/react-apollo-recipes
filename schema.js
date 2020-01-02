@@ -25,6 +25,7 @@ type Query{
   getRecipe(_id: ID!): Recipe  
   getCurrentUser: User
   searchRecipes(searchTerm: String): [Recipe]
+  getUserRecipes(userName: String!): [Recipe]
 }
 
 type Token{

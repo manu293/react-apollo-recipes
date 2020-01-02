@@ -13,6 +13,7 @@ import { withRouter } from 'react-router-dom';
 // local imports
 import { PageTitle } from '../PageTitle';
 import { ADD_RECIPE, GET_ALL_RECIPES } from '../../queries';
+import withAuth from '../withAuth';
 
 const INITITAL_STATE = {
   name: '',
@@ -149,6 +150,6 @@ class AddRecipe extends Component {
   }
 }
 
-const cAddRecipe = withRouter(AddRecipe);
+const cAddRecipe = withAuth(session => session && session.getCurrentUser)(withRouter(AddRecipe));
 
 export { cAddRecipe as AddRecipe };

@@ -14,7 +14,6 @@ import { PageTitle } from '../PageTitle';
 class SearchPage extends Component {
   renderSearch = searchResult => {
     const { searchRecipes } = searchResult;
-    console.log('The search recipes are: ', searchRecipes);
     if (searchRecipes.length === 0) {
       return <img src="/img/noSearch.png" alt="No Search Result" />;
     }
