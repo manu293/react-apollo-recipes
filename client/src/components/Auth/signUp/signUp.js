@@ -1,3 +1,11 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
+/* eslint-disable react/prop-types */
+/* eslint-disable import/no-extraneous-dependencies */
 // import
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
@@ -56,6 +64,7 @@ class signUp extends Component {
   };
 
   render() {
+    console.log('The props are: ', this.props);
     const { userName, email, password, confirmPassword, errMessage } = this.state;
     return (
       <>

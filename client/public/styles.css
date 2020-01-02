@@ -11,6 +11,17 @@
     text-transform: none;
 }
 
+.show{
+  display: block;
+}
+
+.hidden{
+  display: none;
+}
+
+.arrow{
+  cursor: pointer;
+}
 
  @import url("https://fonts.googleapis.com/css?family=Rubik:300,400,400i,500,700");
  .toolbar-dropdown, .site-header .site-menu > ul > li .sub-menu {
