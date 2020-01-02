@@ -1,3 +1,5 @@
+/* eslint-disable no-unreachable */
+/* eslint-disable no-restricted-globals */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
 /* eslint-disable import/prefer-default-export */
@@ -5,11 +7,20 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { ApolloConsumer } from 'react-apollo';
+
 // local imports
 import './header.styles.scss';
 import '../common.styles.scss';
+import { SEARCH_RECIPE } from '../../queries';
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchTerm: '',
+    };
+  }
+
   handleSignOut = (client, history) => {
     localStorage.setItem('token', '');
     client.resetStore();
@@ -116,7 +127,22 @@ class Header extends Component {
     );
   };
 
+  handleSubmit = async (e, client, history) => {
+    const { searchTerm } = this.state;
+    e.preventDefault();
+    const { data } = await client.query({
+      query: SEARCH_RECIPE,
+      variables: { searchTerm },
+    });
+    history.push({
+      pathname: '/search/recipe',
+      state: [{ searchResult: data }, { searchTerm }],
+    });
+  };
+
   render() {
+    const { searchTerm } = this.state;
+    const { history } = this.props;
     return (
       <header className="site-header navbar-sticky">
         <div className="topbar d-flex justify-content-between">
@@ -131,20 +157,41 @@ class Header extends Component {
             </Link>
           </div>
           {/* Search / Categories */}
-          <div className="search-box-wrap d-flex">
-            <div className="search-box-inner align-self-center">
-              <div className="search-box d-flex">
-                <form className="input-group" method="get">
-                  <span className="input-group-btn">
-                    <button type="submit">
-                      <i className="icon-search" />
-                    </button>
-                  </span>
-                  <input className="form-control" type="search" placeholder="Search for recipies" />
-                </form>
-              </div>
-            </div>
-          </div>
+          <ApolloConsumer>
+            {client => {
+              // if (data.data !== undefined) {
+              return (
+                <div className="search-box-wrap d-flex">
+                  <div className="search-box-inner align-self-center">
+                    <div className="search-box d-flex">
+                      <form
+                        className="input-group"
+                        onSubmit={e => this.handleSubmit(e, client, history)}
+                      >
+                        {/* <span className="input-group-btn">
+                          <button type="button">
+                            <i className="icon-search" />
+                          </button>
+                        </span> */}
+                        <input
+                          className="form-control"
+                          type="search"
+                          name="search"
+                          value={searchTerm}
+                          placeholder="Search for recipies"
+                          onChange={e => this.setState({ searchTerm: e.target.value })}
+                        />
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+            // return null;
+            }
+            {/* } */}
+          </ApolloConsumer>
+
           {/* Toolbar */}
           <div className="toolbar d-flex">{this.renderHeader()}</div>
         </div>

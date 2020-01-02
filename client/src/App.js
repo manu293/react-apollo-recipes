@@ -26,15 +26,15 @@ class App extends Component {
               <ul className="post-meta">
                 <li>
                   <i className="icon-clock" />
-                  <a href="#">{`${day} - ${month} - ${year}`}</a>
+                  <span className="navi-link">{`${day} - ${month} - ${year}`}</span>
                 </li>
                 <li>
                   <i className="icon-user" />
-                  <a href="#">{userName || 'John Doe'}</a>
+                  <span className="navi-link">{userName || 'John Doe'}</span>
                 </li>
                 <li>
                   <i className="icon-tag" />
-                  <a href="#">{category}</a>
+                  <span className="navi-link">{category}</span>
                 </li>
               </ul>
               <h3 className="post-title">
