@@ -31,6 +31,30 @@ export const GET_RECIPE = gql`
 `;
 
 // Recipies mutation
+export const ADD_RECIPE = gql`
+  mutation(
+    $name: String!
+    $category: String!
+    $description: String!
+    $instructions: String!
+    $userName: String
+  ) {
+    addRecipe(
+      name: $name
+      category: $category
+      description: $description
+      instructions: $instructions
+      userName: $userName
+    ) {
+      _id
+      name
+      category
+      description
+      instructions
+      userName
+    }
+  }
+`;
 
 // User queries
 export const GET_CURRENT_USER = gql`

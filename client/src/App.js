@@ -19,9 +19,8 @@ class App extends Component {
       const day = dateObj.getUTCDate();
       const month = dateObj.getUTCMonth() + 1;
       const year = dateObj.getUTCFullYear();
-      console.log('The date object is : ', recipe);
       return (
-        <div className="grid-item" key={_id}>
+        <div className="grid-item pt-3 pb-3" key={_id}>
           <div className="blog-post">
             <div className="post-body">
               <ul className="post-meta">
@@ -58,7 +57,8 @@ class App extends Component {
         <Header session={session} />
         <Query query={GET_ALL_RECIPES}>
           {/* render props */}
-          {(data, loading, error) => {
+          {(data, loading, error, refetch) => {
+            this.refetch = refetch;
             if (loading) return <div>Loading!!!!</div>;
             if (error) return <div>Error</div>;
             if (data.data !== undefined) {
