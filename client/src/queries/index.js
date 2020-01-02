@@ -1,6 +1,18 @@
 /* eslint-disable import/prefer-default-export */
 import { gql } from 'apollo-boost';
 
+// Search Recipe query
+export const SEARCH_RECIPE = gql`
+  query($searchTerm: String) {
+    searchRecipes(searchTerm: $searchTerm) {
+      _id
+      name
+      description
+      category
+    }
+  }
+`;
+
 // Recipies queries
 export const GET_ALL_RECIPES = gql`
   query {

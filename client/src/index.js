@@ -10,7 +10,15 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // local imports
 import App from './App';
-import { NotFound, SignUp, SignIn, withSession, RecipePage, AddRecipe } from './components';
+import {
+  NotFound,
+  SignUp,
+  SignIn,
+  withSession,
+  RecipePage,
+  AddRecipe,
+  SearchPage,
+} from './components';
 // connecting the front-end to the back-end
 const client = new ApolloClient({
   uri: 'http://localhost:4444/graphql',
@@ -40,6 +48,7 @@ const Root = ({ refetch, session }) => {
         <Route path="/signup" exact render={() => <SignUp refetch={refetch} />} />
         <Route path="/signin" exact render={() => <SignIn refetch={refetch} />} />
         <Route path="/recipe/add" exact render={() => <AddRecipe session={session} />} />
+        <Route path="/search/recipe" exact component={SearchPage} />
         <Route path="/recipes/:_id" component={RecipePage} />
         <Route path="*" component={NotFound} />
       </Switch>

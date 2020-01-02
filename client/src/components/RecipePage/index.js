@@ -48,19 +48,19 @@ class RecipePage extends Component {
                       <ul className="post-meta mb-4">
                         <li>
                           <i className="icon-clock" />
-                          <a href="#">{`${day} - ${month} - ${year}`}</a>
+                          <span className="navi-link">{`${day} - ${month} - ${year}`}</span>
                         </li>
                         <li>
                           <i className="icon-user" />
-                          <a href="#">{userName || 'John Doe'}</a>
+                          <span className="navi-link">{userName || 'John Doe'}</span>
                         </li>
                         <li>
                           <i className="icon-tag" />
-                          <a href="#">{category}</a>
+                          <span className="navi-link">{category}</span>
                         </li>
                         <li>
                           <i className="icon-heart" />
-                          <a href="#">{likes}</a>
+                          <span className="navi-link">{likes}</span>
                         </li>
                       </ul>
                       {/* Gallery */}
@@ -76,9 +76,7 @@ class RecipePage extends Component {
                       </div>
                       <div className="d-flex flex-wrap justify-content-between align-items-center pt-3 pb-4">
                         <div className="pb-2">
-                          <a className="text-sm text-muted navi-link" href="#">
-                            {`#${category}`}
-                          </a>
+                          <span className="text-sm text-muted navi-link">{`#${category}`}</span>
                         </div>
                         <div className="pb-2">
                           <span className="d-inline-block align-middle text-sm text-muted">
