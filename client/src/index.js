@@ -23,10 +23,14 @@ import {
 } from './components';
 // connecting the front-end to the back-end
 const client = new ApolloClient({
-  uri: '/graphql',
-  fetchOptions: {
-    credentials: 'include',
-  },
+  networkInterface: createNetworkInterface('/graphql', {
+    credentials: 'same-origin',
+  }),
+  shouldBatch: false,
+  // uri: '/graphql',
+  // fetchOptions: {
+  //   credentials: 'include',
+  // },
   request: operation => {
     const token = localStorage.getItem('token');
     operation.setContext({
