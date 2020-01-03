@@ -53,15 +53,9 @@ class RecipePage extends Component {
 
   handleLikes = (likeRecipe, unlikeRecipe) => {
     if (this.state.liked) {
-      likeRecipe().then(({ data }) => {
-        // await this.props.refetch();
-        console.log('The like Recipe data : ', data, ' : ', this.props);
-      });
+      likeRecipe();
     } else {
-      unlikeRecipe().then(({ data }) => {
-        // await this.props.refetch();
-        console.log('The unlike recipe data is : ', data, ' : ', this.props);
-      });
+      unlikeRecipe();
     }
   };
 
@@ -86,7 +80,6 @@ class RecipePage extends Component {
                 name,
                 userName,
               } = getRecipe;
-              console.log('The userName is: ', userName);
               const dateObj = new Date(createdDate);
               const day = dateObj.getUTCDate();
               const month = dateObj.getUTCMonth() + 1;

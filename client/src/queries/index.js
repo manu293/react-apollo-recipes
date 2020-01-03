@@ -1,5 +1,9 @@
 /* eslint-disable import/prefer-default-export */
+// imports
 import { gql } from 'apollo-boost';
+
+// local imports
+import { recipeFragments } from './fragments';
 
 // Search Recipe query
 export const SEARCH_RECIPE = gql`
@@ -17,30 +21,19 @@ export const SEARCH_RECIPE = gql`
 export const GET_ALL_RECIPES = gql`
   query {
     getAllRecipes {
-      _id
-      name
-      description
-      category
-      createdDate
-      userName
-      likes
+      ...CompleteRecipe
     }
   }
+  ${recipeFragments.recipe}
 `;
 
 export const GET_RECIPE = gql`
   query($_id: ID!) {
     getRecipe(_id: $_id) {
-      _id
-      name
-      category
-      description
-      instructions
-      createdDate
-      likes
-      userName
+      ...CompleteRecipe
     }
   }
+  ${recipeFragments.recipe}
 `;
 
 // Recipies mutation
@@ -80,19 +73,19 @@ export const DELETE_USER_RECIPE = gql`
 export const LIKE_RECIPE = gql`
   mutation($_id: ID, $userName: String!) {
     likeRecipe(_id: $_id, userName: $userName) {
-      _id
-      likes
+      ...LikeRecipe
     }
   }
+  ${recipeFragments.likes}
 `;
 
 export const UNLIKE_RECIPE = gql`
   mutation($_id: ID, $userName: String!) {
     unlikeRecipe(_id: $_id, userName: $userName) {
-      _id
-      likes
+      ...LikeRecipe
     }
   }
+  ${recipeFragments.likes}
 `;
 
 // User queries
