@@ -14,7 +14,6 @@ import '../common.styles.scss';
 class PageTitle extends Component {
   render() {
     const { title, bcrumbs } = this.props;
-    console.log('THe title is : ', title);
     return (
       <div className="page-title">
         <div className="container">

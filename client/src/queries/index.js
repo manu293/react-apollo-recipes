@@ -23,6 +23,7 @@ export const GET_ALL_RECIPES = gql`
       category
       createdDate
       userName
+      likes
     }
   }
 `;
@@ -72,6 +73,24 @@ export const DELETE_USER_RECIPE = gql`
   mutation($_id: ID) {
     deleteUserRecipe(_id: $_id) {
       _id
+    }
+  }
+`;
+
+export const LIKE_RECIPE = gql`
+  mutation($_id: ID, $userName: String!) {
+    likeRecipe(_id: $_id, userName: $userName) {
+      _id
+      likes
+    }
+  }
+`;
+
+export const UNLIKE_RECIPE = gql`
+  mutation($_id: ID, $userName: String!) {
+    unlikeRecipe(_id: $_id, userName: $userName) {
+      _id
+      likes
     }
   }
 `;

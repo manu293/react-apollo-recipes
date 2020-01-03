@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -100,6 +101,15 @@ exports.resolvers = {
     deleteUserRecipe: async (root, { _id }, { Recipe }) => {
       const recipe = await Recipe.findOneAndRemove({ _id });
       return recipe;
+    },
+    likeRecipe: async (root, { _id, userName }, { Recipe, User }) => {
+      const recipe = await Recipe.findOneAndUpdate({ _id }, { $inc: { likes: 1 } });
+      const user = await User.findOneAndUpdate({ userName }, { $addToSet: { favorites: _id } });
+      return recipe;
+    },
+    unlikeRecipe: async (root, { _id, userName }, { Recipe, User }) => {
+      const recipe = await Recipe.findOneAndUpdate({ _id }, { $inc: { likes: -1 } });
+      const user = await User.findOneAndUpdate({ userName }, { $pull: { favorites: _id } });
     },
   },
 };
