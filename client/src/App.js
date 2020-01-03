@@ -1,18 +1,33 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-disable no-undef */
 // imports
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
-import { Link } from 'react-router-dom';
+import { Query, ApolloConsumer } from 'react-apollo';
+import { Link, withRouter } from 'react-router-dom';
 
 // local imports
 import { Header } from './components';
-import { GET_ALL_RECIPES } from './queries';
+import { GET_ALL_RECIPES, SEARCH_RECIPE } from './queries';
 
 class App extends Component {
-  renderRecipes = getAllRecipes => {
+  searchCategory = async (client, category, history) => {
+    const { data } = await client.query({
+      query: SEARCH_RECIPE,
+      variables: { category },
+    });
+    const searchTerm = category;
+    history.push({
+      pathname: '/search/recipe',
+      state: [{ searchResult: data }, { searchTerm }],
+    });
+  };
+
+  renderRecipes = (getAllRecipes, history) => {
     return getAllRecipes.map(recipe => {
       const { _id, name, description, category, createdDate, userName } = recipe;
       const dateObj = new Date(createdDate);
@@ -30,11 +45,26 @@ class App extends Component {
                 </li>
                 <li>
                   <i className="icon-user" />
-                  <span className="navi-link">{userName || 'John Doe'}</span>
+                  <Link to="/profile" className="navi-link">
+                    {userName || 'John Doe'}
+                  </Link>
                 </li>
                 <li>
-                  <i className="icon-tag" />
-                  <span className="navi-link">{category}</span>
+                  <ApolloConsumer>
+                    {client => {
+                      return (
+                        <>
+                          <i className="icon-tag" />
+                          <span
+                            className="navi-link"
+                            onClick={() => this.searchCategory(client, category, history)}
+                          >
+                            {category}
+                          </span>
+                        </>
+                      );
+                    }}
+                  </ApolloConsumer>
                 </li>
               </ul>
               <h3 className="post-title">
@@ -51,7 +81,7 @@ class App extends Component {
   };
 
   render() {
-    const { session } = this.props;
+    const { session, history } = this.props;
     return (
       <div className="App">
         <Header session={session} />
@@ -65,7 +95,7 @@ class App extends Component {
               const { getAllRecipes } = data.data;
               return (
                 <div className="container padding-bottom-3x padding-top-3x mb-1">
-                  {this.renderRecipes(getAllRecipes)}
+                  {this.renderRecipes(getAllRecipes, history)}
                 </div>
               );
             }
@@ -77,4 +107,6 @@ class App extends Component {
   }
 }
 
-export default App;
+const cApp = withRouter(App);
+
+export { cApp as App };

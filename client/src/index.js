@@ -9,7 +9,7 @@ import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // local imports
-import App from './App';
+import { App } from './App';
 import {
   NotFound,
   SignUp,

@@ -12,7 +12,7 @@ import { withRouter } from 'react-router-dom';
 
 // local imports
 import { PageTitle } from '../PageTitle';
-import { ADD_RECIPE, GET_ALL_RECIPES } from '../../queries';
+import { ADD_RECIPE, GET_ALL_RECIPES, GET_USER_RECIPES } from '../../queries';
 import withAuth from '../withAuth';
 
 const INITITAL_STATE = {
@@ -62,7 +62,10 @@ class AddRecipe extends Component {
       <Mutation
         mutation={ADD_RECIPE}
         variables={{ name, description, instructions, category, userName }}
-        refetchQueries={[{ query: GET_ALL_RECIPES }]}
+        refetchQueries={[
+          { query: GET_ALL_RECIPES },
+          { query: GET_USER_RECIPES, variables: { userName } },
+        ]}
       >
         {(addRecipe, { data, loading, error }) => {
           return (
