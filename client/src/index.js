@@ -22,7 +22,7 @@ import {
 } from './components';
 // connecting the front-end to the back-end
 const client = new ApolloClient({
-  uri: 'http://localhost:4444/graphql',
+  uri: 'https://apollo-recipes.herokuapp.com/graphql',
   fetchOperations: {
     credentials: 'include',
   },
