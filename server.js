@@ -5,7 +5,7 @@ const path = require('path');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: 'variables.env' });
-const { graphqlExpress } = require('apollo-server-express');
+const { graphiqlExpress, graphqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
 const Recipe = require('./models/Recipes');
 const User = require('./models/User');
@@ -51,7 +51,7 @@ app.use(async (req, res, next) => {
 });
 
 // Create GraphiQL application
-// app.use("/graphiql", graphiqlExpress({ endpointURL: "/graphql" }));
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 // Connect schemas with GraphQL
 app.use(
