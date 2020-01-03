@@ -1,6 +1,7 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable react/prop-types */
 // imports
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 // local imports
 import './alert.styles.scss';
@@ -31,10 +32,5 @@ class Alert extends Component {
     );
   }
 }
-
-Alert.propTypes = {
-  type: PropTypes.string.isRequired,
-  message: PropTypes.string.isRequired,
-};
 
 export { Alert };

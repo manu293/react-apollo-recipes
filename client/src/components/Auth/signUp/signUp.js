@@ -52,7 +52,6 @@ class signUp extends Component {
     signUpUser()
       .then(async ({ data }) => {
         localStorage.setItem('token', data.signInUser.token);
-        console.log('The token is : ', data);
         await refetch();
       })
       .catch(resp => {
@@ -64,7 +63,6 @@ class signUp extends Component {
   };
 
   render() {
-    console.log('The props are: ', this.props);
     const { userName, email, password, confirmPassword, errMessage } = this.state;
     return (
       <>

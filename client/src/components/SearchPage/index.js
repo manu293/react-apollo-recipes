@@ -45,7 +45,6 @@ class SearchPage extends Component {
   };
 
   render() {
-    console.log('this.props.location : ', this.props.location);
     const { searchResult } = this.props.location.state[0];
     const { searchTerm } = this.props.location.state[1];
     return (

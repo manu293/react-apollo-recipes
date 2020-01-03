@@ -12,7 +12,6 @@ const withAuth = conditionFunc => Component => props => (
     {(data, loading, error) => {
       if (loading) return <div>Loading</div>;
       if (error) return <div>Error ...</div>;
-      console.log('The withAuth data is :', data);
       return conditionFunc(data.data) ? <Component {...props} /> : <Redirect to="/" />;
     }}
   </Query>

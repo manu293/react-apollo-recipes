@@ -68,9 +68,7 @@ class ProfilePage extends Component {
   handleDelete = deleteUserRecipe => {
     const confirmDelete = window.confirm('Are you sure you want to delete the recipe ? ');
     if (confirmDelete) {
-      deleteUserRecipe().then(({ data }) => {
-        console.log('The data is : ', data);
-      });
+      deleteUserRecipe();
     }
   };
 
