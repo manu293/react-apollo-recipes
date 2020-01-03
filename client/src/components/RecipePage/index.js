@@ -1,3 +1,6 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
@@ -7,15 +10,63 @@
 /* eslint-disable react/prefer-stateless-function */
 // imports
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
-import { Link } from 'react-router-dom';
+import { Query, Mutation } from 'react-apollo';
+import { Link, withRouter } from 'react-router-dom';
 
 // local imports
 import { PageTitle } from '../PageTitle';
-import { GET_RECIPE } from '../../queries';
+import {
+  GET_RECIPE,
+  LIKE_RECIPE,
+  GET_ALL_RECIPES,
+  UNLIKE_RECIPE,
+  GET_USER_RECIPES,
+  GET_CURRENT_USER,
+} from '../../queries';
 
 class RecipePage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      curUser: '',
+      liked: false,
+    };
+  }
+
+  componentDidMount() {
+    if (this.props.session.getCurrentUser) {
+      const { userName, favorites } = this.props.session.getCurrentUser;
+      const { _id } = this.props.match.params;
+      const prevLiked = favorites.findIndex(favorite => favorite._id === _id) > -1;
+      this.setState({ curUser: userName, liked: prevLiked });
+    }
+  }
+
+  handleClick = (likeRecipe, unlikeRecipe) => {
+    this.setState(
+      prevState => ({
+        liked: !prevState.liked,
+      }),
+      () => this.handleLikes(likeRecipe, unlikeRecipe)
+    );
+  };
+
+  handleLikes = (likeRecipe, unlikeRecipe) => {
+    if (this.state.liked) {
+      likeRecipe().then(({ data }) => {
+        // await this.props.refetch();
+        console.log('The like Recipe data : ', data, ' : ', this.props);
+      });
+    } else {
+      unlikeRecipe().then(({ data }) => {
+        // await this.props.refetch();
+        console.log('The unlike recipe data is : ', data, ' : ', this.props);
+      });
+    }
+  };
+
   render() {
+    const { curUser, liked } = this.state;
     const { _id } = this.props.match.params;
     return (
       <>
@@ -35,6 +86,7 @@ class RecipePage extends Component {
                 name,
                 userName,
               } = getRecipe;
+              console.log('The userName is: ', userName);
               const dateObj = new Date(createdDate);
               const day = dateObj.getUTCDate();
               const month = dateObj.getUTCMonth() + 1;
@@ -80,27 +132,62 @@ class RecipePage extends Component {
                         <div className="pb-2">
                           <span className="text-sm text-muted navi-link">{`#${category}`}</span>
                         </div>
-                        <div className="pb-2">
-                          <span className="d-inline-block align-middle text-sm text-muted">
-                            Like post:&nbsp;&nbsp;&nbsp;
-                          </span>
-                          <a
-                            className="social-button shape-rounded"
-                            href="#"
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            title="Like this post"
-                          >
-                            <i className="icon-heart" />
-                          </a>
-                        </div>
+                        {curUser ? (
+                          <div className="pb-2">
+                            <span className="d-inline-block align-middle text-sm text-muted">
+                              Like post:&nbsp;&nbsp;&nbsp;
+                            </span>
+                            <Mutation
+                              mutation={UNLIKE_RECIPE}
+                              variables={{ _id, userName: curUser }}
+                              refetchQueries={[
+                                { query: GET_ALL_RECIPES },
+                                { query: GET_CURRENT_USER },
+                                { query: GET_USER_RECIPES, variables: { userName: curUser } },
+                              ]}
+                            >
+                              {unlikeRecipe => {
+                                return (
+                                  <Mutation
+                                    mutation={LIKE_RECIPE}
+                                    variables={{ _id, userName: curUser }}
+                                    refetchQueries={[
+                                      { query: GET_ALL_RECIPES },
+                                      { query: GET_CURRENT_USER },
+                                      { query: GET_USER_RECIPES, variables: { userName: curUser } },
+                                    ]}
+                                  >
+                                    {likeRecipe => {
+                                      return (
+                                        <span
+                                          className="social-button shape-rounded"
+                                          style={
+                                            liked
+                                              ? { cursor: 'pointer', color: '#0055ff' }
+                                              : { cursor: 'pointer' }
+                                          }
+                                          data-toggle="tooltip"
+                                          data-placement="top"
+                                          title="Like this post"
+                                          onClick={() => this.handleClick(likeRecipe, unlikeRecipe)}
+                                        >
+                                          <i className="icon-heart " />
+                                        </span>
+                                      );
+                                    }}
+                                  </Mutation>
+                                );
+                              }}
+                            </Mutation>
+                          </div>
+                        ) : null}
                       </div>
                       <div className="entry-navigation">
                         <div className="column text-left">
-                          <a className="btn btn-outline-secondary btn-sm" href="#">
+                          <div className="btn btn-outline-secondary btn-sm" disabled>
                             <i className="icon-arrow-left" />
                             &nbsp;Prev
-                          </a>
+                          </div>
                         </div>
                         <div className="column">
                           <Link
@@ -114,10 +201,10 @@ class RecipePage extends Component {
                           </Link>
                         </div>
                         <div className="column text-right">
-                          <a className="btn btn-outline-secondary btn-sm" href="#">
+                          <div className="btn btn-outline-secondary btn-sm" disabled>
                             Next&nbsp;
                             <i className="icon-arrow-right" />
-                          </a>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -133,4 +220,6 @@ class RecipePage extends Component {
   }
 }
 
-export { RecipePage };
+const cRecipePage = withRouter(RecipePage);
+
+export { cRecipePage as RecipePage };
