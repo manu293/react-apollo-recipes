@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
@@ -23,7 +24,7 @@ import {
 // connecting the front-end to the back-end
 const client = new ApolloClient({
   uri: 'https://apollo-recipes.herokuapp.com/graphql',
-  fetchOperations: {
+  fetchOptions: {
     credentials: 'include',
   },
   request: operation => {
@@ -35,9 +36,9 @@ const client = new ApolloClient({
     });
   },
   onError: ({ networkError }) => {
-    if (networkError) {
-      console.log('The error is: ', networkError);
-    }
+    // if (networkError) {
+    //   localStorage.setItem("token", "");
+    // }
   },
 });
 
