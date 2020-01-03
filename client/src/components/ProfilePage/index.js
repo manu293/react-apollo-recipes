@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-alert */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -9,11 +11,16 @@
 // imports
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Query } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 
 // local imports
 import { PageTitle } from '../PageTitle';
-import { GET_USER_RECIPES } from '../../queries';
+import {
+  GET_USER_RECIPES,
+  DELETE_USER_RECIPE,
+  GET_CURRENT_USER,
+  GET_ALL_RECIPES,
+} from '../../queries';
 import withAuth from '../withAuth';
 
 class ProfilePage extends Component {
@@ -58,13 +65,50 @@ class ProfilePage extends Component {
     });
   };
 
+  handleDelete = deleteUserRecipe => {
+    const confirmDelete = window.confirm('Are you sure you want to delete the recipe ? ');
+    if (confirmDelete) {
+      deleteUserRecipe().then(({ data }) => {
+        console.log('The data is : ', data);
+      });
+    }
+  };
+
   renderUserRecipeItems = getUserRecipes => {
     return getUserRecipes.map((recipe, i) => {
-      const { _id, name, description, category } = recipe;
+      const { _id, name, description, category, userName } = recipe;
       return (
         <div className={`card  mb-4 ${i % 2 === 0 ? ' bg-secondary' : ''}`} key={_id}>
           <div className="card-body">
-            <span className="badge badge-warning">{category}</span>
+            <span className="badge badge-primary">{category}</span>
+            <Mutation
+              mutation={DELETE_USER_RECIPE}
+              variables={{ _id }}
+              refetchQueries={[
+                { query: GET_USER_RECIPES, variables: { userName } },
+                { query: GET_CURRENT_USER },
+                { query: GET_ALL_RECIPES },
+              ]}
+            >
+              {(deleteUserRecipe, attrs = {}) => {
+                return (
+                  <span
+                    className="badge badge-danger"
+                    onClick={() => this.handleDelete(deleteUserRecipe)}
+                    style={{ float: 'right', cursor: 'pointer' }}
+                  >
+                    {attrs.loading ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-white mr-2"
+                        role="status"
+                      />
+                    ) : (
+                      'Delete Post'
+                    )}
+                  </span>
+                );
+              }}
+            </Mutation>
             <div className="pt-3">
               <h6>
                 <Link className="navi-link text-gray-dark" to={`/recipes/${_id}`}>

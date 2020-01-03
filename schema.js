@@ -36,5 +36,6 @@ type Mutation{
   addRecipe(name: String!, category: String!, description: String!, instructions: String!,userName: String): Recipe
   signUpUser(userName: String!, email: String!, password: String!): Token
   signInUser(userName: String!, password: String! ): Token
+  deleteUserRecipe(_id: ID): Recipe
 }
 `;

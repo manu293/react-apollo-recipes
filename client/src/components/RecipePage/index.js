@@ -52,7 +52,9 @@ class RecipePage extends Component {
                         </li>
                         <li>
                           <i className="icon-user" />
-                          <span className="navi-link">{userName || 'John Doe'}</span>
+                          <Link to="/profile" className="navi-link">
+                            {userName || 'John Doe'}
+                          </Link>
                         </li>
                         <li>
                           <i className="icon-tag" />
