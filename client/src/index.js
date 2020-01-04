@@ -28,7 +28,6 @@ const client = new ApolloClient({
   fetchOptions: {
     credentials: 'include',
   },
-  introspection: true,
   request: operation => {
     const token = localStorage.getItem('token');
     operation.setContext({
