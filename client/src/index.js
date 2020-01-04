@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
+import { createHttpLink } from 'apollo-link-http';
 // local imports
 import { App } from './App';
 import {
@@ -21,8 +21,20 @@ import {
   ProfilePage,
 } from './components';
 // connecting the front-end to the back-end
+const customFetch = (uri, options) => {
+  return fetch(uri, options).then(response => {
+    if (response.status >= 500) {
+      // or handle 400 errors
+      return Promise.reject(response.status);
+    }
+    return response;
+  });
+};
 const client = new ApolloClient({
-  uri: 'https://gentle-hollows-45761.herokuapp.com/graphql',
+  link: createHttpLink({
+    uri: 'https://gentle-hollows-45761.herokuapp.com/graphql',
+    fetch: customFetch,
+  }),
   fetchOperations: {
     credentials: 'include',
   },
