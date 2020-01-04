@@ -24,7 +24,7 @@ import {
 // connecting the front-end to the back-end
 
 const client = new ApolloClient({
-  uri: 'https://gentle-hollows-45761.herokuapp.com/graphql',
+  uri: 'https://gentle-hollows-45761.herokuapp.com/',
   fetchOptions: {
     credentials: 'include',
   },
