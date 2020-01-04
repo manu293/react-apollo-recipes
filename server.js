@@ -3,7 +3,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const cros = require('cors');
+const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const path = require('path');
 // bring in the graphql middleware
@@ -32,12 +32,11 @@ mongoose
 // running our express application
 const app = express();
 
-// passing the connections coming from react back to graphql
-const crosOptions = {
-  origin: 'http://localhost:3000',
-  credentials: true,
-};
-app.use(cros(crosOptions));
+// const corsOptions = {
+//   origin: "http://localhost:3000",
+//   credentials: true
+// };
+app.use(cors('*'));
 
 // set up JWT authentication middleware
 app.use(async (req, res, next) => {
