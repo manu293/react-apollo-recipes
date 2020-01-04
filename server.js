@@ -32,11 +32,11 @@ mongoose
 // running our express application
 const app = express();
 
-// const corsOptions = {
-//   origin: "http://localhost:3000",
-//   credentials: true
-// };
-app.use(cors('*'));
+const corsOptions = {
+  origin: 'https://gentle-hollows-45761.herokuapp.com',
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 // set up JWT authentication middleware
 app.use(async (req, res, next) => {
