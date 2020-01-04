@@ -22,38 +22,6 @@ import {
   ProfilePage,
 } from './components';
 // connecting the front-end to the back-end
-// const customFetch = (uri, options) => {
-//   return fetch(uri, options).then(response => {
-//     if (response.status >= 500) {
-//       console.log('The error is: ', response);
-//       return Promise.reject(response.status);
-//     }
-//     return response;
-//   });
-// };
-// const client = new ApolloClient({
-//   link: createHttpLink({
-//     uri: 'https://gentle-hollows-45761.herokuapp.com/graphql',
-//     fetch: customFetch,
-//   }),
-//   introspection: true,
-//   fetchOperations: {
-//     credentials: 'include',
-//   },
-//   request: operation => {
-//     const token = localStorage.getItem('token');
-//     operation.setContext({
-//       headers: {
-//         authorization: token,
-//       },
-//     });
-//   },
-//   onError: ({ networkError }) => {
-//     if (networkError) {
-//       console.log('The error is: ', networkError);
-//     }
-//   },
-// });
 
 const client = new ApolloClient({
   uri: 'https://gentle-hollows-45761.herokuapp.com/graphql',
@@ -70,9 +38,9 @@ const client = new ApolloClient({
     });
   },
   onError: ({ networkError }) => {
-    // if (networkError) {
-    //   localStorage.setItem("token", "");
-    // }
+    if (networkError) {
+      localStorage.setItem('token', '');
+    }
   },
 });
 

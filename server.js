@@ -78,7 +78,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // using environmental vairable port or the default port
-const PORT = process.env.PORT || 4444;
+const { PORT } = process.env;
+// const PORT = process.env.PORT || 4444;
 
 // listening to port changes
 app.listen(PORT, () => {
