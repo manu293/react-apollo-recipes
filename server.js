@@ -61,6 +61,7 @@ app.use(
   bodyParser.json(),
   graphqlExpress(({ currentUser }) => ({
     introspection: true,
+    playground: true,
     schema,
     context: {
       Recipe,
