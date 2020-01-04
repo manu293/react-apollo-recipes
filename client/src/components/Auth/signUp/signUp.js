@@ -71,6 +71,7 @@ class signUp extends Component {
           <div className="col-md-12">
             <Mutation mutation={SIGNUP_USER} variables={{ userName, email, password }}>
               {(signUpUser, { data, loading, error }) => {
+                if (error) return console.log('The error from signin mutation is: ', error);
                 return (
                   <form
                     className="card"

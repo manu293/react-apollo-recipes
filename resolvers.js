@@ -110,6 +110,7 @@ exports.resolvers = {
     unlikeRecipe: async (root, { _id, userName }, { Recipe, User }) => {
       const recipe = await Recipe.findOneAndUpdate({ _id }, { $inc: { likes: -1 } });
       const user = await User.findOneAndUpdate({ userName }, { $pull: { favorites: _id } });
+      return recipe;
     },
   },
 };

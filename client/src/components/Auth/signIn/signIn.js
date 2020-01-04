@@ -67,6 +67,7 @@ class signIn extends Component {
             <div className="col-md-6" style={{ marginLeft: '300px' }}>
               <Mutation mutation={SIGNIN_USER} variables={{ userName, password }}>
                 {(signInUser, { data, loading, error }) => {
+                  if (error) return console.log('The error from signin mutation is: ', error);
                   return (
                     <form className="card" onSubmit={e => this.handleSubmit(e, signInUser)}>
                       <div className="card-body">
