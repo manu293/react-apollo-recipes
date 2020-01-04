@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
@@ -23,14 +22,10 @@ import {
 } from './components';
 // connecting the front-end to the back-end
 const client = new ApolloClient({
-  networkInterface: createNetworkInterface('/graphql', {
-    credentials: 'same-origin',
-  }),
-  shouldBatch: false,
-  // uri: '/graphql',
-  // fetchOptions: {
-  //   credentials: 'include',
-  // },
+  uri: 'https://gentle-hollows-45761.herokuapp.com/graphql',
+  fetchOperations: {
+    credentials: 'include',
+  },
   request: operation => {
     const token = localStorage.getItem('token');
     operation.setContext({
@@ -40,9 +35,9 @@ const client = new ApolloClient({
     });
   },
   onError: ({ networkError }) => {
-    // if (networkError) {
-    //   localStorage.setItem("token", "");
-    // }
+    if (networkError) {
+      console.log('The error is: ', networkError);
+    }
   },
 });
 

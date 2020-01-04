@@ -1,59 +1,62 @@
+/* eslint-disable no-console */
+// imports
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const path = require('path');
-const cors = require('cors');
+const cros = require('cors');
 const jwt = require('jsonwebtoken');
-require('dotenv').config({ path: 'variables.env' });
+const path = require('path');
+// bring in the graphql middleware
 const { graphiqlExpress, graphqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
+
+// local imports
+require('dotenv').config({ path: 'variables.env' });
 const Recipe = require('./models/Recipes');
 const User = require('./models/User');
-
-// Bring in GraphQL-Express middleware
-
-const { typeDefs } = require('./schema');
 const { resolvers } = require('./resolvers');
+const { typeDefs } = require('./schema');
 
-// Create schema
+// make executable graphql schema
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
 });
 
-// Connects to database
+// connecting to the database
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log('DB connected'))
-  .catch(err => console.error(err));
+  .then(() => console.log('DB Connected'))
+  .catch(err => console.log('The error is: ', err));
 
-// Initializes application
+// running our express application
 const app = express();
 
-// const corsOptions = {
-//   origin: "http://localhost:3000",
-//   credentials: true
-// };
-app.use(cors('*'));
+// passing the connections coming from react back to graphql
+const crosOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+};
+app.use(cros(crosOptions));
 
-// Set up JWT authentication middleware
+// set up JWT authentication middleware
 app.use(async (req, res, next) => {
   const token = req.headers.authorization;
-  if (token !== 'null') {
+  if (token) {
     try {
       const currentUser = await jwt.verify(token, process.env.SECRET);
       req.currentUser = currentUser;
     } catch (err) {
-      console.error(err);
+      console.log(err);
     }
   }
   next();
 });
 
-// Create GraphiQL application
+// setting up graphiql application
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
-// Connect schemas with GraphQL
+// connect schema to graphql
 app.use(
   '/graphql',
   bodyParser.json(),
@@ -68,15 +71,17 @@ app.use(
 );
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('public'));
+  app.use(express.static('client/build'));
 
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
 
+// using environmental vairable port or the default port
 const PORT = process.env.PORT || 4444;
 
+// listening to port changes
 app.listen(PORT, () => {
-  console.log(`Server listening on PORT ${PORT}`);
+  console.log(`Listening on port ${PORT}`);
 });
